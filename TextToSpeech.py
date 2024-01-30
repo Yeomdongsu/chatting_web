@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, Response
 from flask_restful import Resource
 from google.cloud import texttospeech
 
@@ -29,10 +29,12 @@ class TextToSpeechResource(Resource) :
             input=synthesis_input, voice=voice, audio_config=audio_config
         )
 
-        # The response's audio_content is binary.
-        with open("output.mp3", "wb") as out:
-            # Write the response to the output file.
-            out.write(response.audio_content)
-            print('성공')
+        audio_content = response.audio_content
 
-        return "성공"
+        # # The response's audio_content is binary.
+        # with open("output.mp3", "wb") as out:
+        #     # Write the response to the output file.
+        #     out.write(response.audio_content)
+        #     print('성공')
+
+        return Response(audio_content, mimetype='audio/mpeg')
