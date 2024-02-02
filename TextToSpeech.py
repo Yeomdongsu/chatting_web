@@ -1,6 +1,7 @@
-from flask import request, Response
+from flask import request, send_file
 from flask_restful import Resource
 from google.cloud import texttospeech
+from io import BytesIO
 
 class TextToSpeechResource(Resource) :
     def post(self) :
@@ -15,7 +16,7 @@ class TextToSpeechResource(Resource) :
         # Build the voice request, select the language code ("en-US") and the ssml
         # voice gender ("neutral")
         voice = texttospeech.VoiceSelectionParams(
-            language_code="ko-KR", name="ko-KR-Wavenet-C"
+            language_code="ko-KR", name=data["type"]
         )
 
         # Select the type of audio file you want returned
@@ -29,12 +30,12 @@ class TextToSpeechResource(Resource) :
             input=synthesis_input, voice=voice, audio_config=audio_config
         )
 
-        audio_content = response.audio_content
-
+        audio_bytes = response.audio_content
+    
         # # The response's audio_content is binary.
         # with open("output.mp3", "wb") as out:
         #     # Write the response to the output file.
-        #     out.write(response.audio_content)
+        #     out.write(audio_content)
         #     print('성공')
 
-        return Response(audio_content, mimetype='audio/mpeg')
+        return send_file(BytesIO(audio_bytes), mimetype='audio/mpeg')
