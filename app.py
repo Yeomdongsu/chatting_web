@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
-from Chatgpt import ChatgptResource
+from Chatgpt import ChatgptDiaryResource, ChatgptResource
 from TextToSpeech import TextToSpeechResource
 from config import Config
 
@@ -15,6 +15,7 @@ jwt = JWTManager(app)
 api = Api(app)
 
 api.add_resource(ChatgptResource, "/gpt")
+api.add_resource(ChatgptDiaryResource, "/gpt/diary")
 api.add_resource(TextToSpeechResource, "/tts")
 
 if __name__ == "__main__" : 
