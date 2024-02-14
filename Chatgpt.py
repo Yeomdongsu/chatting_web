@@ -9,9 +9,9 @@ class ChatgptResource(Resource) :
     def generate_text(self,prompt):
             response = openai.Completion.create(
             engine="gpt-3.5-turbo-instruct",
-            prompt=prompt + "writing style:Conversational, Empathetic",
+            prompt=prompt + "writing style:Cold",
             temperature=0.7,
-            max_tokens=500,
+            max_tokens=300,
             frequency_penalty=0,
             presence_penalty=0)
             return response.choices[0].text
@@ -19,7 +19,7 @@ class ChatgptResource(Resource) :
     def post(self) :
           data = request.get_json()
           
-          res = self.generate_text(data["content"])
+          res = self.generate_text(f'답변은 짧고 간결하게 존댓말 쓰지 말고 반말로 한글로 대답해. 질문 : {data["content"]}')
           print(res)
           return {"result" : "success", "ChatGPT" : res}, 200
     
