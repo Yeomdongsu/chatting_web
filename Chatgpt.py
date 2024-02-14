@@ -9,9 +9,9 @@ class ChatgptResource(Resource) :
     def generate_text(self,prompt):
             response = openai.Completion.create(
             engine="gpt-3.5-turbo-instruct",
-            prompt=prompt + "writing style:Conversational, tone:Warm",
+            prompt=prompt + "writing style:Conversational, Empathetic",
             temperature=0.7,
-            max_tokens=500,
+            max_tokens=1000,
             frequency_penalty=0,
             presence_penalty=0)
             return response.choices[0].text.replace("\n", "")
