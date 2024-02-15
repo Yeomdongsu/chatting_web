@@ -37,6 +37,6 @@ class ChatgptDiaryResource(Resource) :
     def post(self) :
           data = request.get_json()
 
-          res = self.generate_text(f'오늘 하루를 일기로 남기고 싶어. 내용을 보며 어울리는 말들도 덧붙여서 정말 사람이 쓴 것 처럼 길게 써줘. 제목, 날짜, 내용 순서로 구분 지어서 한국어로 1500글자 이하로 써줘. 제목 : {data["title"]}, 날짜 : {data["date"]}, 내용 : {data["content"]}, 기분 : {data["emotion"]}')
+          res = self.generate_text(f'오늘 하루를 일기로 남기고 싶어. 내용을 보며 어울리는 말들도 덧붙여서 정말 사람이 쓴 것 처럼 길게 써줘. 제목, 날짜, 내용 순서로 구분 지어서 한국어로 공백 포함 1500글자 미만으로 써줘. 제목 : {data["title"]}, 날짜 : {data["date"]}, 내용 : {data["content"]}, 기분 : {data["emotion"]}')
           print(res)
           return {"result" : "success", "ChatGPT" : res}, 200          
