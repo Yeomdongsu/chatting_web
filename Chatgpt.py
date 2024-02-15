@@ -29,7 +29,7 @@ class ChatgptDiaryResource(Resource) :
                 engine="gpt-3.5-turbo-instruct",
                 prompt=prompt + "writing style:Conversational, Empathetic",
                 temperature=0.7,
-                max_tokens=1000,
+                max_tokens=1500,
                 frequency_penalty=0,
                 presence_penalty=0)
                 return response.choices[0].text
